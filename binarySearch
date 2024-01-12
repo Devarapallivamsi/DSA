@@ -1,1 +1,49 @@
+# Binary search
+arr = [4, 5, 6, 7, 0, 1, 2, 3]
+# k = 0
+target = 2
+targetIdx = -1
+'''
+approach 2
+Do a binary search with low as 0 and high as len(arr) - 1 for the value that's less than high.!
+which is nothing but pivot.
+if pivot is equal to target, you have found the ans and return it.
+-> Now, I know the highest value in my array (nums[pivotIdx - 1]);
+also, I know the ending value of my rotated array (nums[-1])
+-> Now if target is less than nums[-1], do a binary search with:
+    low = pivotIdx + 1
+    high = n - 1 
+else:
+    low = 0
+    high = pivotIdx - 1
+'''
+
+quit()
+'''
+approach 1
+Find the pivot by traversing the array linearly and in the process if you find k, break and return the idx.
+Ans how to find the pivot, start from left and stop at the index where there is a decrease.
+now,even after finding the pivot if I didn't find my ans,my target is in the right half and I shall do a binary search 
+with low = pivotIndex +  1 and high = len(arr) - 1
+'''
+pivotIdx = 0
+pos = -1
+while arr[pivotIdx] < arr[pivotIdx + 1]:
+    if arr[pivotIdx] == target:
+        pos = pivotIdx
+        break
+    pivotIdx += 1
+if pos == -1:
+    low = pivotIdx + 1
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            pos = mid
+            break
+        elif arr[mid] > target:
+            high = mid - 1
+        else:
+            low = mid + 1
+print(pos)
 
