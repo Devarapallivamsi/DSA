@@ -60,7 +60,7 @@ low = 0
                 else:
                     high = mid - 1
 
-2.Searching element in rotated sorted array 2
+2.Searching minimum in rotated sorted array
 import math
 
 nums = [4, 5, 6, 7, 1, 2, 3]
