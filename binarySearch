@@ -38,29 +38,61 @@ This works in a greedy approach in a sense by looking out only for sorted portio
 '''
 
 low = 0
-        high = len(nums) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if nums[mid] == target:
-                return mid
-            if nums[low] < nums[mid]:
-                """
-                Left portion is sorted and right portion is distorted.
-                """
-                if nums[low] <= target < nums[mid]:
-                    high = mid - 1
-                else:
-                    low = mid + 1
-            else:
-                """
-                Right portion is sorted and left portion is distorted.
-                """
-                if nums[high] >= target > nums[mid]:
-                    low = mid + 1
-                else:
+high = len(nums) - 1
+while low <= high:
+    mid = (low + high) // 2
+    if nums[mid] == target:
+        return mid
+    if nums[low] < nums[mid]:
+        """
+        Left portion is sorted and right portion is distorted.
+        """
+        if nums[low] <= target < nums[mid]:
+            high = mid - 1
+        else:
+            low = mid + 1
+    else:
+        """
+        Right portion is sorted and left portion is distorted.
+        """
+        if nums[high] >= target > nums[mid]:
+            low = mid + 1
+        else:
                     high = mid - 1
 
-2.Searching minimum in rotated sorted array
+2.  Finding element in rotated sorted array 2(array having duplicates)
+"""
+Approach: Just increment low and decrement high by one.Reason: I have got to know that nums[mid] is not my target,
+so neither nums[low](=nums[mid]) or nums[high](=nums[mid]) will be my target!!
+"""
+low = 0
+high = len(nums) - 1
+while low <= high:
+    mid = (low + high) // 2
+    if nums[mid] == target:
+        return mid
+    if nums[low] == nums[mid] == nums[high]:
+        low += 1
+        high -= 1
+        continue
+    if nums[low] < nums[mid]:
+        """
+        Left portion is sorted and right portion is distorted.
+        """
+        if nums[low] <= target < nums[mid]:
+            high = mid - 1
+        else:
+            low = mid + 1
+    else:
+        """
+        Right portion is sorted and left portion is distorted.
+        """
+        if nums[high] >= target > nums[mid]:
+            low = mid + 1
+        else:
+                    high = mid - 1
+
+3.Searching minimum in rotated sorted array
 import math
 
 nums = [4, 5, 6, 7, 1, 2, 3]
