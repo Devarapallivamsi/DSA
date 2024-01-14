@@ -1,3 +1,4 @@
+1.searching element in rotated sorted array 1
 '''
 approach 1
 Find the pivot by traversing the array linearly and in the process if you find k, break and return the idx.
@@ -58,3 +59,24 @@ low = 0
                     low = mid + 1
                 else:
                     high = mid - 1
+
+2.Searching element in rotated sorted array 2
+import math
+
+nums = [4, 5, 6, 7, 1, 2, 3]
+minEle = math.inf
+low = 0
+high = len(nums) - 1
+
+while low <= high:
+    mid = (low + high) // 2
+    # left half is sorted;
+    if nums[mid] >= nums[low]:
+        minEle = min(nums[low], minEle)
+        low = mid + 1
+    else:
+        minEle = min(nums[mid], minEle)
+        # right half is sorted;
+        high = mid - 1
+print(minEle)
+
