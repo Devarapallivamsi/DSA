@@ -139,3 +139,18 @@ while low <= high:
 print(minEle)
 
 ======================================================================================
+4. Finding the only single occurring element where all others occur twice.
+nums = [3, 3, 7, 7, 8, 8, 9, 11, 11]
+low = 1
+high = len(nums) - 2
+while low <= high:
+    mid = (low + high) // 2
+    if nums[mid] != nums[mid - 1] and nums[mid] != nums[mid + 1]:
+        print(nums[mid])
+        break
+    if (mid % 2 == 0 and nums[mid] == nums[mid + 1]) or (mid % 2 != 0 and nums[mid] == nums[mid - 1]):
+        # I am on the left half and eliminate it.
+        low = mid + 1
+    else:
+        # I am on the right half and eliminate it.
+        high = mid - 1
