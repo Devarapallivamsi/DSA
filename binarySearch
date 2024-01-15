@@ -155,6 +155,3 @@ while low <= high:
         # I am on the right half and eliminate it.
         high = mid - 1
 
-# Added this line.
-
-
