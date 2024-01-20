@@ -1,4 +1,26 @@
-Finding pivot in a rotated sorted array:
+1.Searching minimum in rotated sorted array
+import math
+
+nums = [4, 5, 6, 7, 1, 2, 3]
+minEle = math.inf
+low = 0
+high = len(nums) - 1
+
+while low <= high:
+    mid = (low + high) // 2
+    # left half is sorted;
+    if nums[mid] >= nums[low]:
+        minEle = min(nums[low], minEle)
+        low = mid + 1
+    else:
+        minEle = min(nums[mid], minEle)
+        # right half is sorted;
+        high = mid - 1
+print(minEle)
+
+======================================================================================
+
+2.Finding pivotIdx (Index of mmin element) in a rotated sorted array:
 import math
 
 nums = [4, 5, 6, 2, 3]
@@ -20,7 +42,7 @@ while left < right:
 
 print(f'pivotIdx: {pivotIdx}')
 ======================================================================================
-1.searching element in rotated sorted array 1
+3.searching element in rotated sorted array 1
 '''
 approach 1
 Find the pivot by traversing the array linearly and in the process if you find k, break and return the idx.
@@ -84,7 +106,7 @@ while low <= high:
 
 ======================================================================================
 
-2.  Finding element in rotated sorted array 2(array having duplicates)
+4.  Finding element in rotated sorted array 2(array having duplicates)
 """
 Approach: Just increment low and decrement high by one.Reason: I have got to know that nums[mid] is not my target,
 so neither nums[low](=nums[mid]) or nums[high](=nums[mid]) will be my target!!
@@ -118,28 +140,7 @@ while low <= high:
 
 ======================================================================================
 
-3.Searching minimum in rotated sorted array
-import math
-
-nums = [4, 5, 6, 7, 1, 2, 3]
-minEle = math.inf
-low = 0
-high = len(nums) - 1
-
-while low <= high:
-    mid = (low + high) // 2
-    # left half is sorted;
-    if nums[mid] >= nums[low]:
-        minEle = min(nums[low], minEle)
-        low = mid + 1
-    else:
-        minEle = min(nums[mid], minEle)
-        # right half is sorted;
-        high = mid - 1
-print(minEle)
-
-======================================================================================
-4. Finding the only single occurring element where all others occur twice.
+5. Finding the only single occurring element where all others occur twice.
 nums = [3, 3, 7, 7, 8, 8, 9, 11, 11]
 low = 1
 high = len(nums) - 2
@@ -156,11 +157,14 @@ while low <= high:
         high = mid - 1
 
 
-# Finding the peak element Idx in the array.
+6.# Finding the peak element(not pivot in rotated array!!) Idx in the array.
 peak: An element that's greater than both of it's neighbours.
 eg:
 1. [1,4,7] possible ans(Idx): 1
 2. [1,2,3,4,5,6,4,1,2,9,3] possible ans(Idx): 5, 9;
+Approach:
+If I am on the point where it prev number is greater, it implies that I am on a downward slope
+so I have to move up.i.e, eliminate right half.
     def findPeakElement(self, nums):
         if len(nums) == 1:
             # Index of the only element present in nums.
@@ -182,5 +186,3 @@ eg:
             return 0
         else:
             return len(nums) - 1
-
-# Trying to pull
