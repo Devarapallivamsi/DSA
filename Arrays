@@ -1,0 +1,31 @@
+Given an array of numbers and a target, find all the pairs(i,j) of numbers whose sum is less than target.
+Note:
+-> 0 <= i < j < len(nums)
+pb link: 
+"https://leetcode.com/problems/count-pairs-whose-sum-is-less-than-target/"
+'''
+Approach:
+Sort the array and keep pointers and extremities and run a loop unitl low < high
+In each run of the loop,check if the nums[right] - nums[left] < target, if so, add
+the diff of right and left to the pairs variable.
+Reason: If the number at right when summed up to left is less than target,it implies
+that the numbers to the lef of the right pointer(which are less) will also form pairs such that
+they are less than target when summed up with left pointer.
+'''
+def countPairs(self, nums: List[int], target: int) -> int:
+    if len(nums) == 1:
+        return 0
+
+    nums.sort()
+    pairs = 0
+    left = 0
+    right = len(nums) - 1
+
+    while left < right:
+        curSum = nums[left] + nums[right]
+        if curSum < target:
+            pairs += right - left
+            left += 1
+        else:
+            right -= 1
+    return pairs
