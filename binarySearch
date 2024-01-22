@@ -190,3 +190,71 @@ so I have to move up.i.e, eliminate right half.
             return 0
         else:
             return len(nums) - 1
+7.
+Problem Statement: You are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
+You can only pick already bloomed roses that are adjacent to make a bouquet. You are also told that you require exactly ‘k’ adjacent bloomed roses to make a single bouquet.
+Find the minimum number of days required to make at least ‘m’ bouquets each containing ‘k’ roses. Return -1 if it is not possible.
+
+LC: https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
+bloomDays = [7, 7, 7, 7, 12, 7, 7]
+m = 2
+k = 3
+
+# Brute force approach:
+sortedBloomDays = sorted(bloomDays)
+minDays = max(bloomDays)
+for i in range(len(sortedBloomDays) - 1, -1, -1):
+    startDay = sortedBloomDays[i]
+    interArray = [1 if i <= startDay else 0 for i in bloomDays]
+    bktsMade = 0
+    flowersCollected = 0
+    for x in interArray:
+        if x == 1:
+            flowersCollected += 1
+        else:
+            flowersCollected = 0
+            continue
+        if flowersCollected == k:
+            flowersCollected = 0
+            bktsMade += 1
+        if bktsMade == m:
+            minDays = startDay
+            break
+print(minDays)
+
+
+'
+Approach:
+With min and max of bloomDays as extremities, do a binary search:
+For every (day) mid, check if m bouquets can be made.
+If for a mid, m bouqets can be made, eliminate right half to check if the bouquets can be made 
+by waiting for even less days.(min days is what's required as the answer.)
+
+if the bouquets can't be done for a mid (day), make low = high + 1 i.e, checking if I can make the 
+bouquet my waiting for more days.
+'
+
+# Optimal solution using binary search:
+low = min(bloomDays)
+high = max(bloomDays)
+minDays = min(bloomDays)
+while low <= high:
+    mid = (low + high) // 2
+    bqtsMade = 0
+    flowersCollected = 0
+    for f in bloomDays:
+        if f <= mid:
+            flowersCollected += 1
+        else:
+            flowersCollected = 0
+            continue
+        if flowersCollected == k:
+            flowersCollected = 0
+            bqtsMade += 1
+        if bqtsMade == m:
+            minDays = mid
+            high = mid - 1
+            break
+    if bqtsMade < m:
+        low = mid + 1
+print(minDays)
