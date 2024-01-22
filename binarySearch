@@ -158,7 +158,7 @@ while low <= high:
         # I am on the right half and eliminate it.
         high = mid - 1
 
-
+===========================================================================================
 6.# Finding the peak element(not pivot in rotated array!!) Idx in the array.
 peak: An element that's greater than both of it's neighbours.
 Note: nums[i] != nums[i - 1] != nums[i + 1]
@@ -190,8 +190,10 @@ so I have to move up.i.e, eliminate right half.
             return 0
         else:
             return len(nums) - 1
-7.
-Problem Statement: You are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
+
+==============================================================================================
+
+7. Problem Statement: You are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
 You can only pick already bloomed roses that are adjacent to make a bouquet. You are also told that you require exactly ‘k’ adjacent bloomed roses to make a single bouquet.
 Find the minimum number of days required to make at least ‘m’ bouquets each containing ‘k’ roses. Return -1 if it is not possible.
 
