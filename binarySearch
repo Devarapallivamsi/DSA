@@ -163,7 +163,7 @@ while low <= high:
 peak: An element that's greater than both of it's neighbours.
 eg:
 1. [1,4,7] possible ans(Idx): 1
-2. [1,2,3,4,5,6,4,1,2,9,3] possible ans(Idx): 5, 9;
+2. [1,2,3,4,5,6,4,1,2,9,3] possible ans(Idx): 6, 9;
 Approach:
 If I am on the point where it prev number is greater, it implies that I am on a downward slope
 so I have to move up.i.e, eliminate right half.
