@@ -22,7 +22,7 @@ print(minEle)
 
 ======================================================================================
 
-2.Finding pivotIdx (Index of mmin element) in a rotated sorted array:
+2.Finding pivotIdx (Index of min element) in a rotated sorted array:
 import math
 
 nums = [4, 5, 6, 2, 3]
