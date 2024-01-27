@@ -138,7 +138,7 @@ while low <= high:
         if nums[high] >= target > nums[mid]:
             low = mid + 1
         else:
-                    high = mid - 1
+            high = mid - 1
 
 ======================================================================================
 
@@ -167,8 +167,8 @@ eg:
 1. [1,4,7] possible ans(Idx): 1
 2. [1,2,3,4,5,6,4,1,2,9,3] possible ans(Idx): 6, 9;
 Approach:
-If I am on the point where it prev number is greater, it implies that I am on a downward slope
-so I have to move up.i.e, eliminate right half.
+If I am on the point where its prev number is greater, it implies that I am on a downward slope
+so I have to move up.i.e, eliminate right half and viceversa.
     def findPeakElement(self, nums):
         if len(nums) == 1:
             # Index of the only element present in nums.
@@ -233,8 +233,7 @@ If for a mid, m bouqets can be made, eliminate right half to check if the bouque
 by waiting for even less days.(min days is what's required as the answer.)
 
 if the bouquets can't be done for a mid (day), make low = high + 1 i.e, checking if I can make the 
-bouquet my waiting for more days.
-'
+required number of bouquets by waiting for more days.
 
 # Optimal solution using binary search:
 low = min(bloomDays)
