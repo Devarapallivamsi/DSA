@@ -350,3 +350,61 @@ def shipWithinDays(self, weights: List[int], reqDays: int) -> int:
 
 ======================================================================================
 
+11.
+pb link: https://takeuforward.org/arrays/kth-missing-positive-number/
+You are given a strictly increasing array ‘vec’ and a positive integer ‘k’. Find the ‘kth’ positive integer missing from ‘vec’.
+BruteForce(~O(n^2)):
+
+def findKthPositive(self, nums: List[int], k: int) -> int:
+    mini = nums[0]
+    maxi = nums[-1]
+
+    numOfLeftMissingNums = mini - 1
+    numOfBetweenMissingNums = (maxi - mini + 1) - len(nums)
+    res = None
+    if k <= numOfLeftMissingNums:
+        return k
+    if numOfLeftMissingNums < k <= (numOfBetweenMissingNums + numOfLeftMissingNums):
+        searchArray = []
+        i = 0
+        while i <= len(nums) - 2:
+            if nums[i + 1] - nums[i] == 1:
+                i+=1
+                continue
+            else:
+                searchArray += [i for i in range(nums[i]+1, nums[i + 1], 1)]
+            i += 1
+        return searchArray[k - numOfLeftMissingNums - 1]
+    else:
+        return maxi + (k - (numOfLeftMissingNums + numOfBetweenMissingNums))
+
+        
+optimal:
+Explanation is on striver's youtube channel.
+def findKthPositive(nums, k):
+    low = 0
+    high = len(nums) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        missingNums = nums[mid] - (mid + 1)
+        if missingNums < k:
+            low = mid + 1
+        else:
+            high = mid - 1
+    """
+        what to return?
+        low and high are at the opposite polarities in terms of the number of missing nums
+        until them.
+        now,
+        ans = nums[high] + more 
+        more is the net after considering previously missed numbers.
+        more = k -  'missed numbers until high' (nums[high] - (high+1)) 
+        
+        so, ans = nums[high] + k - nums[high] + high + 1
+        ans = k + high + 1
+        ans = k + low
+    """
+    return low + k
+
+
