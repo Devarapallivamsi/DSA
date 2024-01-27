@@ -216,6 +216,9 @@ def minEatingSpeed(self, nums: List[int], h: int) -> int:
                 else :
                     low = mid + 1    
             return minBananas
+
+======================================================================================
+
 8.
 Problem Statement: You are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
 You can only pick already bloomed roses that are adjacent to make a bouquet. You are also told that you require exactly ‘k’ adjacent bloomed roses to make a single bouquet.
@@ -284,6 +287,8 @@ while low <= high:
         low = mid + 1
 print(minDays)
 
+======================================================================================
+
 9.Given an array of numbers and another number called as threshold. find the minimum number such that,
 upon dividing divide all the numbers in the array,the summation should be less than or equal to threshhold.
  
@@ -302,6 +307,9 @@ def smallestDivisor(self, nums: List[int], threshold: int) -> int:
             else:
                 low = mid + 1
         return smallDivisor
+
+======================================================================================
+
 10.
 Problem Statement: You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within ‘d’ days.
 The weights of the packages are given in an array ‘of weights’. The packages are loaded on the conveyor belts every day in the same order as they appear in the array. The loaded weights must not exceed the maximum weight capacity of the ship.
@@ -339,3 +347,6 @@ def shipWithinDays(self, weights: List[int], reqDays: int) -> int:
             else:
                 lowWC = mid + 1
         return ans
+
+======================================================================================
+
