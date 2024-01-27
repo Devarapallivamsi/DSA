@@ -193,7 +193,31 @@ so I have to move up.i.e, eliminate right half and viceversa.
 
 ==============================================================================================
 
-7. Problem Statement: You are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
+7. 
+koko eating bananas.
+Find the minimum number of bananas "k" that can be eaten within(including 'h') "h" hours.
+pb link: https://leetcode.com/problems/koko-eating-bananas/
+'''
+In the pb, minBananas = k
+'''
+
+def minEatingSpeed(self, nums: List[int], h: int) -> int:
+            if len(nums) == 1:
+                return math.ceil(nums[0] / h)
+            low = 1
+            high = max(nums)
+            minBananas = None
+            while low <= high:
+                mid = (low + high) // 2
+                eatTime = sum(map(math.ceil, [i/mid for i in nums]))
+                if eatTime <= h:
+                    minBananas = mid
+                    high = mid - 1
+                else :
+                    low = mid + 1    
+            return minBananas
+8.
+Problem Statement: You are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
 You can only pick already bloomed roses that are adjacent to make a bouquet. You are also told that you require exactly ‘k’ adjacent bloomed roses to make a single bouquet.
 Find the minimum number of days required to make at least ‘m’ bouquets each containing ‘k’ roses. Return -1 if it is not possible.
 
@@ -259,3 +283,59 @@ while low <= high:
     if bqtsMade < m:
         low = mid + 1
 print(minDays)
+
+9.Given an array of numbers and another number called as threshold. find the minimum number such that,
+upon dividing divide all the numbers in the array,the summation should be less than or equal to threshhold.
+ 
+pb link: https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
+
+def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        low = 1
+        high = max(nums)
+        smallDivisor = None
+        while low <= high:
+            mid = (low + high) // 2
+            res = sum([math.ceil(i / mid) for i in nums])
+            if res <= threshold:
+                smallDivisor = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+        return smallDivisor
+10.
+Problem Statement: You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within ‘d’ days.
+The weights of the packages are given in an array ‘of weights’. The packages are loaded on the conveyor belts every day in the same order as they appear in the array. The loaded weights must not exceed the maximum weight capacity of the ship.
+Find out the least-weight capacity so that you can ship all the packages within ‘d’ days.
+
+pb Link: https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+
+def shipWithinDays(self, weights: List[int], reqDays: int) -> int:
+        def daysRequired(nums, div):
+            days = 0
+            curLoad = 0
+            i = 0
+            while i <= len(nums) - 1:
+                curLoad += nums[i]
+                if curLoad == div:
+                    curLoad = 0
+                    days += 1
+                elif curLoad > div:
+                    days += 1
+                    curLoad = nums[i]
+                i += 1
+            if curLoad > 0:
+                return days + 1
+            else:
+                return days
+
+        lowWC = max(weights)
+        highWC = sum(weights)
+        ans = None
+        while lowWC <= highWC:
+            mid = (lowWC + highWC) // 2
+            if daysRequired(weights, mid) <= reqDays:
+                highWC = mid - 1
+                ans = mid
+            else:
+                lowWC = mid + 1
+        return ans
