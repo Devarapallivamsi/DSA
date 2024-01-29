@@ -380,13 +380,17 @@ def findKthPositive(self, nums: List[int], k: int) -> int:
 
         
 optimal:
+Eg.input: [2,3,4,7,10]
 Explanation is on striver's youtube channel.
+
+"(As per explanation,) The input should have been [1,2,3,4,5] i.e, idx + 1"
 def findKthPositive(nums, k):
     low = 0
     high = len(nums) - 1
 
     while low <= high:
         mid = (low + high) // 2
+        # Refer to the line above in double quotes.
         missingNums = nums[mid] - (mid + 1)
         if missingNums < k:
             low = mid + 1
@@ -413,6 +417,12 @@ Problem Statement: You are given an array ‘arr’ of size ‘n’ which denote
 You are also given an integer ‘k’ which denotes the number of aggressive cows.
 You are given the task of assigning stalls to ‘k’ cows such that the minimum distance between any two of them is the maximum possible.
 Find the maximum possible minimum distance.
+
+Brute:
+Looping over all the range from low to high and calling canBePlaced function. Stop and return the value - 1. value is 
+where the loop breaks. i.e the distance at which, we can't place the cows.
+
+Optimal:
 stallLocs = [4, 2, 1, 3, 6]
 numCows = 2
 stallLocs.sort()
