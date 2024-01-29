@@ -407,4 +407,53 @@ def findKthPositive(nums, k):
     """
     return low + k
 
+======================================================================================
+12.
+Problem Statement: You are given an array ‘arr’ of size ‘n’ which denotes the position of stalls.
+You are also given an integer ‘k’ which denotes the number of aggressive cows.
+You are given the task of assigning stalls to ‘k’ cows such that the minimum distance between any two of them is the maximum possible.
+Find the maximum possible minimum distance.
+stallLocs = [4, 2, 1, 3, 6]
+numCows = 2
+stallLocs.sort()
+maxDist = stallLocs[-1] - stallLocs[0]
+
+minDist = stallLocs[1] - stallLocs[0]
+entireDist = minDist
+
+i = 2
+while i <= len(stallLocs) - 1:
+    dist = stallLocs[i] - stallLocs[i - 1]
+    if dist < minDist:
+        minDist = dist
+    entireDist += dist
+    i += 1
+
+low = minDist
+high = maxDist
+
+possibleDist = None
+
+
+def canBePlaced(stallLocs, mid, numCows):
+    last = stallLocs[0]
+    placed = 1
+    for i in range(1, len(stallLocs)):
+        if stallLocs[i] - last >= mid:
+            placed += 1
+            last = stallLocs[i]
+        if placed == numCows:
+            return True
+    return False
+
+
+
+while low <= high:
+    mid = (low + high) // 2
+    if canBePlaced(stallLocs, mid, numCows):
+        possibleDist = mid
+        low = mid + 1
+    else:
+        high = mid - 1
+print(possibleDist)
 
