@@ -467,3 +467,71 @@ while low <= high:
         high = mid - 1
 print(possibleDist)
 
+======================================================================================
+13.
+
+pb link: https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/
+pagesInBook = [25, 46, 28, 49, 24]
+studs = 4
+My soln:
+def canThePagesBeAllocated(books, pages, studs):
+    i = 0
+    canBeAllocated = None
+    mini = math.inf
+    while i + len(books) - studs < len(books):
+        mini = min(mini, sum(books[i: i + (len(books) - studs) + 1]))
+        if mini == pages:
+            canBeAllocated = True
+            break
+        i += 1
+    if canBeAllocated is None:
+        canBeAllocated = False
+    return [canBeAllocated, mini >= pages]
+
+
+low = max(pagesInBook)
+high = sum(pagesInBook)
+possible = math.inf
+while low <= high:
+    mid = (low + high) // 2
+    res = canThePagesBeAllocated(pagesInBook, mid, numStuds)
+    if res[0]:
+        possible = min(mid, possible)
+        low = mid + 1
+    else:
+        if res[1]:
+            low = mid + 1
+            continue
+        high = mid - 1
+print(possible)
+
+striver's soln:
+Apply BS to this?
+low = max of pagesInBook
+high = sum of pagesInBook
+mid = (low + high) // 2
+"""
+
+
+def numStuds(books, pages):
+    stud = 1
+    pagesStud = 0
+    for i in books:
+        if pagesStud + i <= pages:
+            pagesStud += i
+        else:
+            stud += 1
+            pagesStud = i
+    return stud
+
+
+low = max(pagesInBook)
+high = sum(pagesInBook)
+while low <= high:
+    mid = (low + high) // 2
+    res = numStuds(pagesInBook, mid)
+    if res > studs:
+        low = mid + 1
+    else:
+        high = mid - 1
+print(low)
