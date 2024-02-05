@@ -535,3 +535,59 @@ while low <= high:
     else:
         high = mid - 1
 print(low)
+
+============================================================================
+pb link: https://takeuforward.org/arrays/minimise-maximum-distance-between-gas-stations/
+Brute force:
+
+Brute:
+zones = dict.fromkeys([i for i in range(len(gs) - 1)], 0)
+placed = 0
+zoneToIncrease = None
+while placed < k:
+    maxDist = -math.inf
+    for i in range(1, len(zones) + 1):
+        dist = (gs[i] - gs[i - 1]) / (zones[i - 1] + 1)
+        if dist >= maxDist:
+            maxDist = dist
+            zoneToIncrease = i - 1
+    zones[zoneToIncrease] += 1
+    placed += 1
+    maxDist = (gs[zoneToIncrease + 1] - gs[zoneToIncrease]) / (zones[zoneToIncrease] + 1)
+
+
+# After placing the given gas stations in the zones between, find the max distance between any two by iterating over.
+maxDist = -math.inf
+
+for i in range(1,len(gs)):
+    maxDist = max(maxDist,(gs[i]-gs[i-1])/(zones[i-1]+1))
+print(maxDist)
+optimal:
+gs = [1, 2, 3, 4, 5]
+k = 4
+
+# Optimal Solution
+low = 0
+high = 0
+for i in range(1, len(gs)):
+    if gs[i] - gs[i - 1] > high:
+        high = gs[i] - gs[i - 1]
+
+
+def countGs(gs, mid):
+    count = 0
+    for i in range(1, len(gs)):
+        distOfSection = (gs[i] - gs[i - 1]) / mid
+        if distOfSection == gs[i]:
+            distOfSection -= 1
+        count += int(distOfSection)
+    return count
+
+
+while high - low > 1e-6:
+    mid = (low + high) / 2
+    if countGs(gs, mid) > k:
+        low = mid
+    else:
+        high = mid
+print(high)
