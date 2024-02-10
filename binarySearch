@@ -426,6 +426,7 @@ Optimal:
 stallLocs = [4, 2, 1, 3, 6]
 numCows = 2
 stallLocs.sort()
+# After sorting, [1,2,3,4,6]
 maxDist = stallLocs[-1] - stallLocs[0]
 
 minDist = stallLocs[1] - stallLocs[0]
