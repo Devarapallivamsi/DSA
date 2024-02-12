@@ -612,9 +612,9 @@ requiredElesInSortedOder = givenEles // 2 + 1
 
 medList = []
 cur = 0
-i = 0
-j = 0
-#
+i = 0 # Iterator for lst
+j = 0 # Iterator for arr
+
 while cur < requiredElesInSortedOder:
     if i >= len(lst):
         medList.append(arr[j])
@@ -712,6 +712,7 @@ class Solution:
             mergeSort(arr, mid + 1, end)
             return sortMyList(arr, start, mid, end)
 
+if __name__ == "__main__":
         nums = nums1 + nums2
         mergeSort(nums, 0, len(nums) - 1)
         # When odd number of numbers are given
@@ -726,18 +727,20 @@ TC: O(log(min(n1,n2)))
 def kThElement(arr1, arr2, k):
     n1 = len(arr1)
     n2 = len(arr2)
+    # To minimmise the TC
     if n1 > n2:
         return kThElement(arr2,arr1,k)
     low = 0
     high = n1
+    
     while low <= high:
         mid1 = (low + high) // 2
         mid2 = k - mid1
-
+        # If the position of the number to be selected is less than the num of elements taken from first array,(mid1)
         if mid1 > k:
             high = mid1 - 1
             continue
-
+        # If the number of elements to be taken from second array (mid2) are greater than available elements, 
         if mid2 > n2:
             low = mid1 + 1
             continue
@@ -747,6 +750,7 @@ def kThElement(arr1, arr2, k):
         l2 = float('-inf')
         r2 = float('inf')
 
+        Initialize the variables only if the mid1 and mid2 are in appropriate bounds.
         if mid1 >= 1:
             l1 = arr1[mid1 - 1]
         if mid1 < n1:
@@ -756,9 +760,11 @@ def kThElement(arr1, arr2, k):
         if mid2 < n2:
             r2 = arr2[(k - mid1)]
 
+        # Do a dry run to understand this logic.
         if l1 <= r2 and l2 <= r1:
             # Found the correct k elements on to the left.
             return max(l1, l2)
+        
         elif l2 > r1:
             low = mid1 + 1
         else:
@@ -767,7 +773,7 @@ def kThElement(arr1, arr2, k):
 
 """
 Edge cases
-1.Asking for first and last elements of the array - first is fine. Last--> Added the small condition.
+1.Asking for first and last elements of the array - first is fine. Last - Done.
 2.Asking for an element that's more than left - Done
 """
 
