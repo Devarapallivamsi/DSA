@@ -851,7 +851,17 @@ Better:
 For each row, do a binary search in the rows if the target is in that row. Ofcourse have a check to eliminate BS in rows where ~(row[0] <= target <= row[lastIdx]).
 
 Optimal:
-Approach: Fill this.
+""" 
+Note: Dry run is mostly preferred.
+Start at the top right of the matrix/left bottom
+Reason: I have sorted values in row and column if I am at one of these positions.
+Here, I started at top-right.
+First check if the current position I am at, is equal to the target.
+Now, Just eliminate a row if the value I am standing at is less than the target i.e, increment the current row.
+else, decrement the column.
+Now, after all this(If the loop terminates), I can just return false as I didn't find it
+"""
+ 
 def findEle(mat, tar):
     rows = len(mat)
     cols = len(mat[0])
