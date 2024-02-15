@@ -837,3 +837,40 @@ print(ans)
             else:
                 low = mid + 1
         return False
+
+Problem Statement: You have been given a 2-D array ‘mat’ of size ‘N x M’ where ‘N’ and ‘M’ denote the number of rows and columns, respectively. The elements of each row and each column are sorted in non-decreasing order.
+But, the first element of a row is not necessarily greater than the last element of the previous row (if it exists).
+You are given an integer ‘target’, and your task is to find if it exists in the given ‘mat’ or not.
+
+pb link: https://leetcode.com/problems/search-a-2d-matrix-ii/
+
+Brute:
+Take two loops and check element in each iteration equals the target.
+
+Better:
+For each row, do a binary search in the rows if the target is in that row. Ofcourse have a check to eliminate BS in rows where ~(row[0] <= target <= row[lastIdx]).
+
+Optimal:
+Approach: Fill this.
+def findEle(mat, tar):
+    rows = len(mat)
+    cols = len(mat[0])
+
+    r = 0
+    c = cols - 1
+    while r <= rows - 1 and cols >= 0:
+        if mat[r][c] == tar:
+            return True
+        if mat[r][c] < tar:
+            r += 1
+        else:
+            c -= 1
+    return False
+
+
+matrix = [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22]]
+target = 3
+ans = findEle(matrix, target)
+print(ans)
+
+
