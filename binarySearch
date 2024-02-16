@@ -883,4 +883,96 @@ target = 3
 ans = findEle(matrix, target)
 print(ans)
 
+Problem statement:
+A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.
+Given a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].
+You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
+You must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.
+
+Brute: Check all elements in two loops.
+Better: Start from any position in the grid.While checking if the element currently that we are 
+standing at is greater than it's four neighbors (Top, bottom,left,right),
+possibilities:
+1.return the current position if it is greater than all four neighbors (peak element)
+2. Go to the first element where the check failed and repeat the same process.
+(It was accepted by leetcode but I am not sure of the time complexity.
+In best case: It is O(1) but in worst case, it is O(4*m*n))
+
+The code:
+
+class Solution:
+    def findPeakGrid(self, mat: List[List[int]],rPos = 0,cPos = 0) -> List[int]:        
+        rows = len(mat)
+        cols = len(mat[0])
+        value = mat[rPos][cPos]
+        # rPos: row position, # cPos: Colum position.
+        # All four adjacent cells' positions.
+        adjCells = [[rPos - 1, cPos], [rPos + 1, cPos], [rPos, cPos - 1], [rPos, cPos + 1]]
+        
+        for cellPos in adjCells:
+            # Stop at the case when the check fails and call the function itself with the new element (the one with which, the check failed).
+            if self.isGreaterThanAdjGrid(mat, cellPos, value, rows, cols):
+                continue
+            else:
+                # This is a recursive implementation and yeah without a base case. But, since we are sure that we shall find a peak, I have coded it this way.
+                # This might fail if the number of recursive calls exceed the limit (in cases like very big matrix is given)
+                return self.findPeakGrid(mat, cellPos[0], cellPos[1])
+        return [rPos, cPos]
+
+
+    def isGreaterThanAdjGrid(self, grid, pos, value, rows, cols):
+            # If either of the index is not in the below range, it implies that the cell is out of bounds and no need to check with it as it's -1 and 
+            # Of course, any element in the grid (having all elements positives) is greater than -1.
+            if -1 < pos[0] < rows and -1 < pos[1] < cols:
+                if grid[pos[0]][pos[1]] > value:
+                    return False
+            return True
+Optimal:
+
+Definitely do a dry run and if needed, go watch the striver's explanation to get this.
+
+My written explanation:
+Start with a binary search on the columns, on the  mid's column, find the maximum element of the column (Have a reference to it's position).
+Now, check if this maximum element is peak (As this is the maximum element in the column, it is already greater than the top and bottom cells). 
+by checking the left and right cells.
+If the check satisfies, return this cell position.
+If not, update the pointers in the direction of cell where the inequality has arisen.
+Eventually, (if a peak exists for sure,) you will find a peak at here or there.
+
+The code:
+class Solution:
+    def findPeakGrid(self, matrix):
+        def findMaxInColumn(grid, rows, cols, md):
+            maxi = grid[0][mid]
+            maxIdx = 0
+            for i in range(1, rows):
+                if grid[i][mid] > maxi:
+                    maxi = grid[i][mid]
+                    maxIdx = i
+            return maxIdx
+
+        # BS on columns
+        low = 0
+        high = len(matrix[0]) - 1
+        numRows = len(matrix)
+        numCols = len(matrix[0])
+        while low <= high:
+            mid = (low + high) // 2
+            maxRowInTheColumn = findMaxInColumn(matrix, numRows, numCols, mid)
+            left = matrix[maxRowInTheColumn][mid - 1] if mid - 1 >= 0 else -1
+            right = matrix[maxRowInTheColumn][mid + 1] if mid + 1 <= numCols - 1 else -1
+            if matrix[maxRowInTheColumn][mid] > left and matrix[maxRowInTheColumn][mid] > right:
+                return [maxRowInTheColumn, mid]
+            if matrix[maxRowInTheColumn][mid] < left:
+                high = mid - 1
+            else:
+                low = mid + 1
+
+
+
+
+
+
+
+
 
