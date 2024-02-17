@@ -829,6 +829,21 @@ print(ans)
         while low <= high:
             mid = (low + high) // 2
             i, j = divmod(mid, cols)
+            """
+                Why do we get row index as the quotient and col index as the remainder if we divide the index of the number by number of cols?
+                Below is its explanation:
+                In a 2D matrix, each element can be uniquely identified by its row index and column index.
+                Let's say we have a matrix of size m x n (m rows and n columns) and we want to find the row and column
+                index of an element at index i in the matrix. To find the row index, we can divide the index i by the number
+                of columns n. The quotient of this division gives us the row index. 
+                This is because every n elements in the matrix belong to the same row. 
+                For example, in a matrix of size 3 x 4, the first 4 elements belong to the first row, 
+                the next 4 elements belong to the second row, and so on.
+                To find the column index, we can take the remainder of the same
+                division (i divided by n). This is because the remainder gives us the position of the element within the
+                row. For example, if i is 5 and n is 4, then the row index is i/n = 5/4 = 1 (integer division gives us 1)
+                and the column index is i mod n = 5 mod 4 = 1.
+            """
             if mat[i][j] == target:
                 return True
             if mat[i][j] > target:
