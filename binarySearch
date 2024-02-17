@@ -600,21 +600,21 @@ Add the two arrays and sort them. return mergedArr[k-1]
 
 Brute_2: 
 Have a mechanism to add only the left half of the merged array so that, if even elements are present (totally i.e., n1 + n2)
-then return (mergedArr[-1] + mergedArr[-2]) // 2.0
+then return (leftHalfmergedArr[-1] + leftHalfmergedArr[-2]) // 2.0
 else:
 return mergedArr[-1]
 
 lst = [3, 4, 5, 6, 7]
 arr = [1, 2, 3]
 givenEles = len(lst) + len(arr)
-requiredElesInSortedOder = givenEles // 2 + 1
+requiredElesInSortedOrder = givenEles // 2 + 1
 
 medList = []
 cur = 0
 i = 0 # Iterator for lst
 j = 0 # Iterator for arr
 
-while cur < requiredElesInSortedOder:
+while cur < requiredElesInSortedOrder:
     if i >= len(lst):
         medList.append(arr[j])
         i += 1
@@ -714,14 +714,62 @@ class Solution:
 if __name__ == "__main__":
         nums = nums1 + nums2
         mergeSort(nums, 0, len(nums) - 1)
-        # When odd number of numbers are given
+        # When odd number of numbers are given.
         if len(nums) % 2 != 0:
             return nums[len(nums) // 2]
+        # When even number of numbers are given.
         return (nums[len(nums) // 2] + nums[(len(nums) // 2) - 1]) / 2
 
 Best Optimal:: Binary search:
+def median(arr1, arr2):
+    n1 = len(arr1)
+    n2 = len(arr2)
+    # To get the TC as O(log(min(m,n)))
+    if n1 > n2:
+        return median(arr2, arr1)
+    low = 0
+    high = n1
+
+    left = (n1 + n2 + 1) // 2
+    while low <= high:
+        # The elements that I am going to take from arr1
+        mid1 = (low + high) // 2
+        # The elements that I am going to take from arr2
+        mid2 = left - mid1
+
+        Finally, I will consider 'left' number of elements i.e, mid1 + mid2
+        # Here the comparison is with indices. Just checking whether the mid is in bounds of respective
+        # indices of the arrays.
+        l1 = float('-inf')
+        r1 = float('inf')
+        l2 = float('-inf')
+        r2 = float('inf')
+        if mid1 >= 1:
+            l1 = arr1[mid1 - 1]
+        if mid2 >= 1:
+            l2 = arr2[mid2 - 1]
+        if mid1 <= n1 - 1:
+            r1 = arr1[mid1]
+        if mid2 <= n2 - 1:
+            r2 = arr2[mid2]
+
+        if r1 >= l2 and r2 >= l1:
+            # Found the configuration such that my array is sorted when I take the parts of the arrays
+            # separated by l1,l2,r1,r2.
+            if (n1 + n2) % 2 == 0:
+                return (max(l1, l2) + min(r1, r2)) // 2.0
+            return max(l2, l1)
+        elif l2 > r1:
+            low = mid1 + 1
+        else:
+            high = mid1 - 1
+
+Pb statement :
+Find Kth element in the array that's obtained when we merge the given(two) sorted arrays.
+
 n1 = len(arr1)
 n2 = len(arr2)
+
 TC: O(log(min(n1,n2)))
 def kThElement(arr1, arr2, k):
     n1 = len(arr1)
@@ -768,14 +816,6 @@ def kThElement(arr1, arr2, k):
             low = mid1 + 1
         else:
             high = mid1 - 1
-
-
-"""
-Edge cases
-1.Asking for first and last elements of the array - first is fine. Last - Done.
-2.Asking for an element that's more than left - Done
-"""
-
 
 ============================================================================
 Pb link: https://takeuforward.org/data-structure/search-in-a-sorted-2d-matrix/
@@ -830,12 +870,13 @@ print(ans)
             mid = (low + high) // 2
             i, j = divmod(mid, cols)
             """
-                Why do we get row index as the quotient and col index as the remainder if we divide the index of the number by number of cols?
+                Why do we get row index as the quotient and col index as the remainder if we divide the index of the number(mid) by number of cols?
+                
                 Below is its explanation:
                 In a 2D matrix, each element can be uniquely identified by its row index and column index.
                 Let's say we have a matrix of size m x n (m rows and n columns) and we want to find the row and column
-                index of an element at index i in the matrix. To find the row index, we can divide the index i by the number
-                of columns n. The quotient of this division gives us the row index. 
+                index of an element at index i in the matrix. To find the row index, we can divide the index i(here, it's mid) by the number
+                of columns n. The quotient of this division gives us the row index.         
                 This is because every n elements in the matrix belong to the same row. 
                 For example, in a matrix of size 3 x 4, the first 4 elements belong to the first row, 
                 the next 4 elements belong to the second row, and so on.
@@ -852,7 +893,8 @@ print(ans)
                 low = mid + 1
         return False
 
-Problem Statement: You have been given a 2-D array ‘mat’ of size ‘N x M’ where ‘N’ and ‘M’ denote the number of rows and columns, respectively. The elements of each row and each column are sorted in non-decreasing order.
+Problem Statement: You have been given a 2-D array ‘mat’ of size ‘N x M’ where ‘N’ and ‘M’ denote the number of rows and columns, respectively.
+The elements of each row and each column are sorted in non-decreasing order.
 But, the first element of a row is not necessarily greater than the last element of the previous row (if it exists).
 You are given an integer ‘target’, and your task is to find if it exists in the given ‘mat’ or not.
 
