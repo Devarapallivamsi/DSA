@@ -1023,6 +1023,53 @@ class Solution:
                 high = mid - 1
             else:
                 low = mid + 1
+==========================================================================================================================
+Matrix Median:
+
+Optimal:
+# Median of the matrix
+import math
+
+mat = [[1, 5, 7, 9, 11], [2, 3, 4, 5, 10], [9, 10, 12, 14, 16]]
+rows = len(mat)
+cols = len(mat[0])
+mini = math.inf
+maxi = -math.inf
+
+# Find the minimum and maximum of all the given numbers just by traversing through first column and last column.
+for i in range(len(mat)):
+    mini = min(mini, mat[i][0])
+    maxi = max(maxi, mat[i][cols - 1])
+
+low = mini
+high = maxi
+
+required = (len(mat) * len(mat[0])) // 2 + 1
+
+# Binary search:
+while low <= high:
+    mid = (low + high) // 2
+    # count = 0
+    count = 0
+    # Count the number of numbers that are less than the current number(mid)
+    # This is done by binary search as the rows are sorted.
+    for row in range(len(mat)):
+        lowR = 0
+        highR = len(mat[row]) - 1
+        while lowR <= highR:
+            midR = (lowR + highR) // 2
+            if mat[row][midR] <= mid:
+                lowR = midR + 1
+            else:
+                highR = midR - 1
+        count += lowR
+    if count <= required:
+        low = mid + 1
+    else:
+        high = mid - 1
+
+print(low)
+
 
 
 
