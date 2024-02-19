@@ -1,31 +1,25 @@
-Given an array of numbers and a target, find all the pairs(i,j) of numbers whose sum is less than target.
-Note:
--> 0 <= i < j < len(nums)
-pb link: 
-"https://leetcode.com/problems/count-pairs-whose-sum-is-less-than-target/"
-'''
-Approach:
-Sort the array and keep pointers and extremities and run a loop unitl low < high
-In each run of the loop,check if the nums[right] - nums[left] < target, if so, add
-the diff of right and left to the pairs variable.
-Reason: If the number at right when summed up to left is less than target,it implies
-that the numbers to the lef of the right pointer(which are less) will also form pairs such that
-they are less than target when summed up with left pointer.
-'''
-def countPairs(self, nums: List[int], target: int) -> int:
-    if len(nums) == 1:
-        return 0
 
-    nums.sort()
-    pairs = 0
-    left = 0
-    right = len(nums) - 1
+#Given an array of numbers,find Second smallest and second largest elements.
+# optimal approach:
+import math
 
-    while left < right:
-        curSum = nums[left] + nums[right]
-        if curSum < target:
-            pairs += right - left
-            left += 1
-        else:
-            right -= 1
-    return pairs
+small = math.inf
+secondSmall = math.inf
+large = -math.inf
+secLarge = -math.inf
+
+nums = [1, 2, 4, 7, 7, 5]
+
+for i in nums:
+    if i > large:
+        large, secLarge = i, large
+    elif i > secLarge and i != large:
+        secLarge = i
+
+    if i < small:
+        small, secondSmall = i, small
+    elif i < secondSmall and i != secondSmall:
+        secondSmall = i
+
+print(secLarge)
+print(secondSmall)
