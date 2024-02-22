@@ -152,11 +152,30 @@ def union(a, b):
         j += 1
     return merged
 
+====================================================================================
+Problem Statement: Given an array that contains only 1 and 0 
+return the count of maximum consecutive ones in the array.
 
+lst = [1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0]
 
-
-
-
+Optimal:
+def maxConsecutiveOnes(arr):
+    i = 0
+    # Variable to be updated with maximum count of consecutive 1s
+    maxCount = 0
+    # Variable to count the consecutive 1s of a particular group.
+    clusterCnt = 0
+    while i < len(arr):
+        # If we see 1, increase the (current) clusterCount by one.
+        if arr[i] == 1:
+            clusterCnt += 1
+        # If we see a 0, it means we might have just came out of a group so, update the maxCount
+        else:
+            if clusterCnt > maxCount:
+                maxCount = clusterCnt
+                clusterCnt = 0
+        i += 1
+    return maxCount
 
 
 
