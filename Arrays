@@ -171,11 +171,17 @@ def maxConsecutiveOnes(arr):
             clusterCnt += 1
         # If we see a 0, it means we might have just came out of a group so, update the maxCount
         else:
+            # We re-initialize the clusterCnt to zero and update maxCount only if we
+            # have a cluster at hand whose num of consecutive ones is greater than the 
+            # one we are already having.
             if clusterCnt > maxCount:
                 maxCount = clusterCnt
                 clusterCnt = 0
+
         i += 1
     return maxCount
+
+
 
 
 
