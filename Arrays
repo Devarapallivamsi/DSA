@@ -180,9 +180,27 @@ def maxConsecutiveOnes(arr):
 
         i += 1
     return maxCount
+========================================================================================
+
+Problem Statement: Given a non-empty array of integers arr,
+every element appears twice except for one. Find that single one.
+
+Optimal: (XOR)
+
+Properties of xor (^):
+Xor of any number with itself is 0 i.e, n ^ n = 0
+Xor of a number with zero is number itself i.e., n ^ 0 = n
+
+def singleOccuringEle(arr):
+    xor = 0
+    for ele in arr:
+        xor ^= ele
+    return xor
 
 
-
+lst = [7, 1, 2, 1, 2]
+ans = singleOccuringEle(lst)
+print(ans)
 
 
 
