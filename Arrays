@@ -113,4 +113,57 @@ def moveZeroesToEnd(nums):
         j += 1
     return nums
 
+========================================================================================================
+Problem Statement: Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
+
+The union of two arrays can be defined as the common and distinct elements in the
+two arrays.NOTE: Elements in the union should be in ascending order.
+
+
+
+def union(a, b):
+    merged = []
+    i = 0
+    j = 0
+    
+    # Loop until the lengths of the two lists are same.
+    while i <= len(a)-1 and j <= len(b)-1:
+        # If ele from first list is less,
+        if a[i] < b[j]:
+            merged.append(a[i])
+            i += 1
+        # If eles are equal.
+        elif a[i] == b[j]:
+            merged.append(a[i])
+            i += 1
+            j += 1
+        # If ele from second list is greater,
+        else:
+            merged.append(b[j])
+            j += 1
+    """Note: Only one of the below gets executed and the other won't as the condition doesn't satisfies."""
+    # Loop to append any leftover eles from list a
+    while i <= len(a) - 1:
+        merged.append(a[i])
+        i += 1
+    # Loop to append any leftover eles from list b
+    while j <= len(b) - 1:
+        merged.append(b[j])
+        j += 1
+    return merged
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
