@@ -202,10 +202,66 @@ lst = [7, 1, 2, 1, 2]
 ans = singleOccuringEle(lst)
 print(ans)
 
+====================================================================================================
 
+Problem: Given an array and a sum k, we need to print the length of the longest subarray that sums to k.
 
+arr = [4, 1, 2, 3, 4]
+k = 5
 
+# The following code works even if both positives and negatives are present in the array.
+# Better approach for maximum subarray whose sum equals given target.
+def longestSubArrayWithGivenSum(arr, target):
+    # This won't get reset to zero
+    sum_ = 0
+    maxlen = 0
+    # The dictionary to store the sum of all elements to it's left of the current index.
+    untilNowSums = {}
+    for i in range(len(arr)):
+        # Firstly, add cur ele to the sum-tracking variable(sum_) as the iteration proceeds
+        sum_ += arr[i]
 
+        # If the sum from starting to until now (which is stored in sum_) equals target, then we have the
+        # biggest subarray as of current iteration.
+        if sum_ == target:
+            maxlen = i + 1
+
+        # If sum until is either lesser or greater than the target we are looking for,
+        # this 'if' statement gets activated.
+        rem = sum_ - target
+        if rem in untilNowSums:
+            maxlen = max(maxlen, i - untilNowSums[rem])
+
+        # Storing the sum until now (ith idx)
+        if sum_ not in untilNowSums:
+            untilNowSums[sum_] = i
+    # After loop terminates, return the maxLen.
+    return maxlen
+
+Optimal:
+# Two pointers.
+def getLongestSubarray(a: [int], k: int) -> int:
+    n = len(a)  # size of the array.
+
+    left, right = 0, 0  # 2 pointers
+    Sum = a[0]
+    maxLen = 0
+    while right < n:
+        # if sum > k, reduce the subarray from left
+        # until sum becomes less or equal to k:
+        while left <= right and Sum > k:
+            Sum -= a[left]
+            left += 1
+
+        # if sum = k, update the maxLen i.e. answer:
+        if Sum == k:
+            maxLen = max(maxLen, right - left + 1)
+
+        # Move forward the right pointer:
+        right += 1
+        if right < n : Sum += a[right]
+
+    return maxLen
 
 
 
