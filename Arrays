@@ -262,5 +262,3 @@ def getLongestSubarray(a: [int], k: int) -> int:
         if right < n : Sum += a[right]
 
     return maxLen
-
-eiojopfd
