@@ -1,5 +1,4 @@
-
-1.#Given an array of numbers,find Second smallest and second largest elements.
+# 1.Given an array of numbers,find Second smallest and second largest elements.
 # optimal approach:
 import math
 
@@ -24,59 +23,62 @@ for i in nums:
 print(secLarge)
 print(secondSmall)
 
-======================================================================
+# ======================================================================
 
-2.Given a sorted array having duplicates, re arrange the array in-place in a way that all unique elements,
-while preserving their order present at first.
-eg: nums = [1,1,2,2,2,3,3,4,4,4]; After rearrangement: [1,2,3,4,numbers in any order]
+# 2.Given a sorted array having duplicates, re arrange the array in-place in a way that all unique elements,
+# while preserving their order present at first.
+# eg: nums = [1,1,2,2,2,3,3,4,4,4]; After rearrangement: [1,2,3,4,numbers in any order]
 
 
-Brute:
-Make a traversal and keep adding the elements to an ordered set. As the set doesn't store repeated elements, 
-just repopulate all the elements in the ordered set in the starting indices of the array.
-M: Number of unique elements
-N: All the given elements.
-TC: while populating the set :O(N) + while repopulating: O(M)
-SC: O(M) (For set)
+# Brute:
+# Make a traversal and keep adding the elements to an ordered set. As the set doesn't store repeated elements,
+# just repopulate all the elements in the ordered set in the starting indices of the array.
+# M: Number of unique elements
+# N: All the given elements.
+# TC: while populating the set :O(N) + while repopulating: O(M)
+# SC: O(M) (For set)
+#
+# Code:
+#
 
-Code:
-
-from collections import OrderedSet
-s = OrderedSet()
+s = set()
 
 for i in nums:
     s.add(i)
 nums[:len(s)] = [j for j in s]
 
 
-Optimal:
+# Optimal:
 
-This uses a two pointer approach:
+# This uses a two pointer approach:
 
-My solution:
+# My solution:
 def removeDupicates(nums):
-        i = 1
-        j = 2
-        while i <= len(nums) - 1 and j <= len(nums) - 1:
-            # while nums[i - 1] <= nums[i]:
-            #     i += 1
-            # j = i + 1
-            while nums[i - 1] >= nums[j]:
-                j += 1
-                if j > len(nums) - 1:
-                    #nums = nums[:i]
-                    return i
-            nums[i], nums[j] = nums[j], nums[i]
-            i += 1
-            j = i + 1
+    i = 1
+    j = 2
+    while i <= len(nums) - 1 and j <= len(nums) - 1:
+        # while nums[i - 1] <= nums[i]:
+        #     i += 1
+        # j = i + 1
+        while nums[i - 1] >= nums[j]:
+            j += 1
+            if j > len(nums) - 1:
+                # nums = nums[:i]
+                return i
+        nums[i], nums[j] = nums[j], nums[i]
+        i += 1
+        j = i + 1
 
-Leetcode Solution:
+
+# Leetcode Solution:
 # Trace this to get an idea.
 """
 Move the j pointer from index 1(potential idx having chances of a duplicate) and check for the element that's
 different from i pointer (that refers to the unique elements). if I find any, just update the (i + 1)th index with j
 and then increase i the pointer by 1. loop ends when j reaches the len(nums)-1.
 """
+
+
 def removeDuplicates(nums):
     i = 0
     for j in range(1, len(nums)):
@@ -86,24 +88,24 @@ def removeDuplicates(nums):
     return nums
 
 
-====================================================================================
-
-Move zeros to the end.
-Pb: You are given an array of integers, your task is to move 
-all the zeros in the array to the end of the array and move non-negative integers to
-the front by maintaining their order.
-
-arr = [1, 0, 2, 3, 0, 4, 0, 1]
-o/p:  [1, 2, 3, 4, 1, 0, 0, 0]
-
-Optimal:
+# ====================================================================================
+#
+# Move zeros to the end.
+# Pb: You are given an array of integers, your task is to move
+# all the zeros in the array to the end of the array and move non-negative integers to
+# the front by maintaining their order.
+#
+# arr = [1, 0, 2, 3, 0, 4, 0, 1]
+# o/p:  [1, 2, 3, 4, 1, 0, 0, 0]
+#
+# Optimal:
 
 def moveZeroesToEnd(nums):
     i = 0
     # Find the first zero.
     while nums[i] != 0:
         i += 1
-    
+
     j = i + 1
     while j <= len(nums) - 1:
         if nums[j] != 0:
@@ -113,21 +115,21 @@ def moveZeroesToEnd(nums):
         j += 1
     return nums
 
-========================================================================================================
-Problem Statement: Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
 
-The union of two arrays can be defined as the common and distinct elements in the
-two arrays.NOTE: Elements in the union should be in ascending order.
-
+# ========================================================================================================
+# Problem Statement: Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
+#
+# The union of two arrays can be defined as the common and distinct elements in the
+# two arrays.NOTE: Elements in the union should be in ascending order.
 
 
 def union(a, b):
     merged = []
     i = 0
     j = 0
-    
+
     # Loop until the lengths of the two lists are same.
-    while i <= len(a)-1 and j <= len(b)-1:
+    while i <= len(a) - 1 and j <= len(b) - 1:
         # If ele from first list is less,
         if a[i] < b[j]:
             merged.append(a[i])
@@ -152,13 +154,14 @@ def union(a, b):
         j += 1
     return merged
 
-====================================================================================
-Problem Statement: Given an array that contains only 1 and 0 
-return the count of maximum consecutive ones in the array.
 
-lst = [1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0]
-
-Optimal:
+# ====================================================================================
+# Problem Statement: Given an array that contains only 1 and 0
+# return the count of maximum consecutive ones in the array.
+#
+# lst = [1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0]
+#
+# Optimal:
 def maxConsecutiveOnes(arr):
     i = 0
     # Variable to be updated with maximum count of consecutive 1s
@@ -180,16 +183,18 @@ def maxConsecutiveOnes(arr):
 
         i += 1
     return maxCount
-========================================================================================
 
-Problem Statement: Given a non-empty array of integers arr,
-every element appears twice except for one. Find that single one.
 
-Optimal: (XOR)
-
-Properties of xor (^):
-Xor of any number with itself is 0 i.e, n ^ n = 0
-Xor of a number with zero is number itself i.e., n ^ 0 = n
+# ========================================================================================
+#
+# Problem Statement: Given a non-empty array of integers arr,
+# every element appears twice except for one. Find that single one.
+#
+# Optimal: (XOR)
+#
+# Properties of xor (^):
+# Xor of any number with itself is 0 i.e, n ^ n = 0
+# Xor of a number with zero is number itself i.e., n ^ 0 = n
 
 def singleOccuringEle(arr):
     xor = 0
@@ -202,12 +207,13 @@ lst = [7, 1, 2, 1, 2]
 ans = singleOccuringEle(lst)
 print(ans)
 
-====================================================================================================
 
-Problem: Given an array and a sum k, we need to print the length of the longest subarray that sums to k.
-
-arr = [4, 1, 2, 3, 4]
-k = 5
+# ====================================================================================================
+#
+# Problem: Given an array and a sum k, we need to print the length of the longest subarray that sums to k.
+#
+# arr = [4, 1, 2, 3, 4]
+# k = 5
 
 # The following code works even if both positives and negatives are present in the array.
 # Better approach for maximum subarray whose sum equals given target.
@@ -238,7 +244,8 @@ def longestSubArrayWithGivenSum(arr, target):
     # After loop terminates, return the maxLen.
     return maxlen
 
-Optimal:
+
+# Optimal:
 # Two pointers.
 def getLongestSubarray(a: [int], k: int) -> int:
     n = len(a)  # size of the array.
@@ -259,6 +266,6 @@ def getLongestSubarray(a: [int], k: int) -> int:
 
         # Move forward the right pointer:
         right += 1
-        if right < n : Sum += a[right]
+        if right < n: Sum += a[right]
 
     return maxLen
