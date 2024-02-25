@@ -263,7 +263,3 @@ def getLongestSubarray(a: [int], k: int) -> int:
 
     return maxLen
 
-
-
-
-cuihcioj op
