@@ -269,3 +269,24 @@ def getLongestSubarray(a: [int], k: int) -> int:
         if right < n: Sum += a[right]
 
     return maxLen
+
+# =====================================================================================
+# Problem Statement: Given an array of integers arr[] and an integer target.
+def twoSum(arr, tar):
+    # Store the ele:indexPosition as we traverse through the array.
+    # (eleRef-elementReference)
+    eleRef = {}
+    for i in range(len(arr)):
+        val = tar - arr[i]
+        # If the value exists in the eleRef, return the current ele and that ele.
+        if val in eleRef:
+            return [i, eleRef[val]]
+        # If the current element is not added into the eleRef yet, add it.
+        if arr[i] not in eleRef:
+            eleRef[arr[i]] = i
+
+
+lst = [2, 7, 11, 15]
+target = 9
+ans = twoSum(lst, target)
+print(ans)
