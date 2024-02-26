@@ -270,8 +270,10 @@ def getLongestSubarray(a: [int], k: int) -> int:
 
     return maxLen
 
+
 # =====================================================================================
 # Problem Statement: Given an array of integers arr[] and an integer target.
+# Optimal:
 def twoSum(arr, tar):
     # Store the ele:indexPosition as we traverse through the array.
     # (eleRef-elementReference)
