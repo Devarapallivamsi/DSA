@@ -303,6 +303,8 @@ print(ans)
 # Trace with the examples below to get a grip.
 lst2 = [1, 2, 2, 0, 1, 0, 1]
 lst = [1, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0]
+
+
 def dnfBrute(arr):
     low = 0
     mid = 0
@@ -320,5 +322,47 @@ def dnfBrute(arr):
             high -= 1
     return arr
 
+
 ans = dnfBrute(lst)
 print(ans)
+
+# ============================================================================================
+
+# Problem Statement: Given an array of N integers, write a program to return an element
+# that occurs more than N/2 times in the given array. You may consider that such an
+# element always exists in the array.
+
+nums = [4, 4, 7, 4, 12, 4, 4, 6]
+
+
+# This works when Qn states that given array definitely contains a majority element.
+# i.e, the element that occurs more than n/2 times in an array.
+# If the question doesn't states so, we have to manually check
+# if we have really got the correct answer(As shown in last loop).
+
+def mooresVotingAlgo(arr):
+    ele = arr[0]
+    counter = 1
+    for i in range(1, len(arr)):
+        if arr[i] == ele:
+            counter += 1
+        else:
+            counter -= 1
+        if counter == 0:
+            if i <= len(arr) - 2:
+                ele = arr[i + 1]
+                counter = 1
+    # Checking if it is a correct answer
+    majorityCount = 0
+    for j in arr:
+        if j == ele:
+            majorityCount += 1
+    if majorityCount > len(arr) / 2:
+        return ele
+    # When the given array doesn't contain majority element.
+    return -1
+
+
+ans = mooresVotingAlgo(nums)
+print(ans)
+
