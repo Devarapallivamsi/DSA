@@ -247,6 +247,13 @@ def longestSubArrayWithGivenSum(arr, target):
 
 # Optimal:
 # Two pointers.
+# Reason why this doesn't work when arr contains positives and negatives:
+# observe that when the sum exceed the target, we are decreasing the range of [left:right] by
+# moving the left pointer towards right pointer. i.e, there lies a belief that the sum definitely bound to
+# change in decreasing direction. but if negatives are present in between, sum fluctuates which is counter to
+# our belief.(Think of sum as a linear graph, it's slope is -45 degrees as per our belief(sum decreases if left pointer
+# moves towards right pointer).
+# But, it is a graph that will contain sharp trough and crests if there are positives and negatives.)
 def getLongestSubarray(a: [int], k: int) -> int:
     n = len(a)  # size of the array.
 
