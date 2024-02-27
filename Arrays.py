@@ -366,3 +366,35 @@ def mooresVotingAlgo(arr):
 ans = mooresVotingAlgo(nums)
 print(ans)
 
+# ==============================================================================
+
+# Problem Statement: Given an integer array arr, find the contiguous subarray
+# (containing at least one number) which has the largest sum and returns its
+# sum and prints the subarray(starting and ending positions).
+import math
+
+
+def kadanesAlgorithm(nums):
+    sum_ = 0
+    maxSum = -math.inf
+    startOfSubArray = None
+    endOfSubArray = None
+    for k in range(len(nums)):
+        sum_ += nums[k]
+
+        # We just discard the sum if it goes below 0 and start summing up from the next element.
+        if sum_ < 0:
+            sum_ = 0
+            startOfSubArray = k + 1
+
+        if sum_ > maxSum:
+            maxSum = sum_
+            endOfSubArray = k
+    # Return the starting,ending and maximum subarray sum
+    return [startOfSubArray, endOfSubArray, maxSum]
+
+
+arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+ans = kadanesAlgorithm(arr)
+print(ans)
+
