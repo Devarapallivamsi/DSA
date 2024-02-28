@@ -405,5 +405,55 @@ arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 ans = kadanesAlgorithm(arr)
 print(ans)
 
+# ===========================================================================
+
+# stock buy and sell problem
+# Problem Statement: You are given an array of prices where prices[i] is the price of a given stock on an ith day.
+#
+# You want to maximize your profit by choosing a single day to buy one stock and choosing a different day
+# in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If
+# you cannot achieve any profit, return 0.
+
+# LeetCode Two Pointer approach:
+# Do a dry on the following examples
+stockPricesOnIthDay = [7, 1, 6, 5, 0, 9, 20]
 
 
+# stockPricesOnIthDay = [3, 2, 6, 5, 0, 3]
+# stockPricesOnIthDay = [1, 2]
+def maxProfit(self, arr) -> int:
+    left = 0
+    right = 1
+    profit = 0
+    while left <= right <= len(arr) - 1:
+        if arr[left] >= arr[right]:
+            left = right
+            right += 1
+        else:
+            profit = max(profit, arr[right] - arr[left])
+            right += 1
+    return profit
+
+
+# The solution that I tried to implement(but couldn't at that time.)
+
+def maxProfit(prices, price=None) -> int:
+    profit = 0
+
+    # buy opportunity
+    # buy until next is bigger
+
+    # From there, calculate different buying options, until a smallest number is found
+    # Keeping track of current max profit
+
+    boughtPrice = math.inf
+
+    for price in prices:
+        # When I can buy the stock for (lower)'price' itself rather than (Higher)'boughtPrice'.
+        if price < boughtPrice:
+            boughtPrice = price
+        else:
+            # If the price is greater than the price I bought, choose the profit that I can get at best.
+            profit = max(profit, price - boughtPrice)
+
+    return profit
