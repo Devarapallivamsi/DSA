@@ -457,3 +457,27 @@ def maxProfit(prices, price=None) -> int:
             profit = max(profit, price - boughtPrice)
 
     return profit
+
+
+# ===========================================================================
+
+# Problem Statement:
+#
+# There’s an array ‘A’ of size ‘N’ with an equal number of positive and negative elements. Without altering the
+# relative order of positive and negative elements, you must return an array of alternately positive and negative
+# values.
+#
+# Note: Start the array with positive elements.
+# Optimal: Runs in O(N) TC
+nums = [1, 2, -3, -1, -2, 3]
+rearrangedArr = [0] * len(nums)
+posIdx = 0
+negIdx = 1
+for i in range(len(nums)):
+    if nums[i] > 0:
+        rearrangedArr[posIdx] = nums[i]
+        posIdx += 2
+    else:
+        rearrangedArr[negIdx] = nums[i]
+        negIdx += 2
+print(rearrangedArr)
