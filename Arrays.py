@@ -436,7 +436,7 @@ def maxProfit(self, arr) -> int:
 
 
 # The solution that I tried to implement(but couldn't at that time.)
-
+# This is actually more intuitive.
 def maxProfit(prices, price=None) -> int:
     profit = 0
 
