@@ -1043,7 +1043,8 @@ class Solution:
 
 
     def isGreaterThanAdjGrid(self, grid, pos, value, rows, cols):
-            # If either of the index is not in the below range, it implies that the cell is out of bounds and no need to check with it as it's -1 and 
+            # If either of the index is not in the below range, it implies that the cell is out of bounds
+            # and no need to check with it as it's -1 and
             # Of course, any element in the grid (having all elements positives) is greater than -1.
             if -1 < pos[0] < rows and -1 < pos[1] < cols:
                 if grid[pos[0]][pos[1]] > value:
@@ -1054,9 +1055,10 @@ Optimal:
 Definitely do a dry run and if needed, go watch the striver's explanation to get this.
 
 My written explanation:
-Start with a binary search on the columns, on the  mid's column, find the maximum element of the column (Have a reference to it's position).
-Now, check if this maximum element is peak (As this is the maximum element in the column, it is already greater than the top and bottom cells). 
-by checking the left and right cells.
+Start with a binary search on the columns --> on the  mid's column -> find the
+maximum element of the column (Have a reference to it's position).
+Now, check if this maximum element is peak by checking the left and right cells (As this is the maximum element in the
+column, it is already greater than the top and bottom cells so, no need to check top and bottom cells).
 If the check satisfies, return this cell position.
 If not, update the pointers in the direction of cell where the inequality has arisen.
 Eventually, (if a peak exists for sure,) you will find a peak at here or there.
@@ -1081,10 +1083,13 @@ class Solution:
         while low <= high:
             mid = (low + high) // 2
             maxRowInTheColumn = findMaxInColumn(matrix, numRows, numCols, mid)
+
             left = matrix[maxRowInTheColumn][mid - 1] if mid - 1 >= 0 else -1
             right = matrix[maxRowInTheColumn][mid + 1] if mid + 1 <= numCols - 1 else -1
+
             if matrix[maxRowInTheColumn][mid] > left and matrix[maxRowInTheColumn][mid] > right:
                 return [maxRowInTheColumn, mid]
+
             if matrix[maxRowInTheColumn][mid] < left:
                 high = mid - 1
             else:
