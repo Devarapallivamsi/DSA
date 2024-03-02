@@ -9,7 +9,7 @@ Sort the array and keep pointers at extremities and run a loop until low < high
 In each run of the loop,check if the nums[right] - nums[left] < target, if so, add
 the diff of right and left(which are the Indices) to the pairs(counting) variable.
 Reason: If the number at right when summed up to left is less than target,it implies
-that all the numbers to the left of the right pointer(which are less) will also form pairs such that
+that all the numbers to the left of the right pointer(which are even less) will also form pairs such that
 they are less than target when summed up with left pointer.
 '''
 def countPairs(self, nums: List[int], target: int) -> int:
