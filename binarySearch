@@ -833,11 +833,13 @@ def kThElement(arr1, arr2, k):
     while low <= high:
         mid1 = (low + high) // 2
         mid2 = k - mid1
-        # If the position of the number to be selected is less than the num of elements taken from first array,(mid1)
+        # If the position of the number to be selected is less than the
+        # num of elements taken from first array,(mid1)
         if mid1 > k:
             high = mid1 - 1
             continue
-        # If the number of elements to be taken from second array (mid2) are greater than available elements, 
+        # If the number of elements to be taken from second array (mid2)
+        # are greater than available elements,
         if mid2 > n2:
             low = mid1 + 1
             continue
