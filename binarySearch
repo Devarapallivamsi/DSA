@@ -391,7 +391,8 @@ def shipWithinDays(self, weights: List[int], reqDays: int) -> int:
 
 11.
 pb link: https://takeuforward.org/arrays/kth-missing-positive-number/
-You are given a strictly increasing array ‘vec’ and a positive integer ‘k’. Find the ‘kth’ positive integer missing from ‘vec’.
+You are given a strictly increasing array ‘vec’ and a positive integer ‘k’.
+Find the ‘kth’ positive integer missing from ‘vec’.
 BruteForce(~O(n^2)):
 
 def findKthPositive(self, nums: List[int], k: int) -> int:
