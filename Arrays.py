@@ -481,3 +481,24 @@ for i in range(len(nums)):
         rearrangedArr[negIdx] = nums[i]
         negIdx += 2
 print(rearrangedArr)
+
+
+# pb Statement:Given an unsorted array of integers nums, return the length of
+# the longest consecutive elements sequence.
+# Optimal solution.
+def longestConsecutive(nums):
+    # To eliminate duplicates
+    hashSet = set(nums)
+    # When the nums is an empty list, we can return 0 as the answer.
+    longest = 0
+    for n in hashSet:
+        # Check if the current element is the starting of the sequence.
+        if n - 1 not in hashSet:
+            length = 1
+            # This is like checking for 2,3,4 etc., by 1 + 1,1 + 2,1 + 3 etc., when we are at
+            # 1 as the starting point
+            # Do a dry run with [100,200,1,4,3,2] array
+            while n + length in hashSet:
+                length += 1
+            longest = max(longest, length)
+    return longest
