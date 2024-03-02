@@ -816,7 +816,10 @@ def median(arr1, arr2):
 
 Pb statement :
 Find Kth element in the array that's obtained when we merge the given(two) sorted arrays.
-
+Note: Avery imp problem and a variation of median. Do a dry run
+with arr1 = [1,4,6,7,8], arr2 = [2,3,5,9,11] to understand the 'if' blocks having
+continue statements.
+Understand the intuition behind each step.
 n1 = len(arr1)
 n2 = len(arr2)
 
