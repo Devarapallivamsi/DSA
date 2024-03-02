@@ -864,7 +864,7 @@ def kThElement(arr1, arr2, k):
             # Found the correct k elements on to the left.
             return max(l1, l2)
         
-        elif l2 > r1:
+        elif l1 < r2:
             low = mid1 + 1
         else:
             high = mid1 - 1
