@@ -824,7 +824,7 @@ TC: O(log(min(n1,n2)))
 def kThElement(arr1, arr2, k):
     n1 = len(arr1)
     n2 = len(arr2)
-    # To minimmise the TC
+    # To minimise the TC
     if n1 > n2:
         return kThElement(arr2,arr1,k)
     low = 0
