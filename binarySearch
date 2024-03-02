@@ -443,7 +443,7 @@ def findKthPositive(nums, k):
         now,
         ans = nums[high] + more 
         more is the net after considering previously missed numbers.
-        more = k -  'missed numbers until high' (nums[high] - (high+1)) 
+        so, ans = nums[high] + k - (nums[high] - (high + 1))
         
         so, ans = nums[high] + k - nums[high] + high + 1
         ans = k + high + 1
