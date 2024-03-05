@@ -502,3 +502,88 @@ def longestConsecutive(nums):
                 length += 1
             longest = max(longest, length)
     return longest
+
+
+# Problem Statement: Given a matrix if an element in the matrix is 0 then you will have to
+# set its entire column and row to 0 and then return the matrix.
+matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
+# Brute
+m = len(matrix)
+n = len(matrix[0])
+zeroLocs = []
+for i in range(m):
+    for j in range(n):
+        if matrix[i][j] == 0:
+            zeroLocs.append((i, j))
+
+for zero in zeroLocs:
+    row = zero[0]
+    col = zero[1]
+    for c in range(n):
+        matrix[row][c] = 0
+    for r in range(m):
+        matrix[r][col] = 0
+
+print(matrix)
+
+# matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
+# Optimal :(In terms of space complexity O(1))
+"""
+Approach:
+First traverse the matrix to update the row and col headers to zero when matrix[i][j] = 0.
+This indicates that these rows and cols (wherever we marked zeros),will be zeros
+Now, Traverse teh matrix by leaving the headers.i.e, from 1,1 to m-1,n-1
+and make the element itself zero if it is non-zero iff either its row header/Col header is zero.
+Finally, Header row and col are left to be dealt with,
+I have taken the following config.
+(suppose, shape of matrix is 4,3)
+  zeroCol
+    * $ $ $
+    *
+    *
+    *
+Now, I will start with columns (Refer striver's video to know why.)
+and update them if the 0,0 is zero.
+Then, I will start with row header updating.
+if the zeroCol is zero, then all eles are updated as zero.
+
+At the end, return the matrix
+"""
+
+matrix = [[1, 1, 1, 1], [1, 0, 1, 1], [1, 1, 0, 1], [0, 1, 1, 1]]
+# Num of rows
+m = len(matrix)
+# Num of columns
+n = len(matrix[0])
+zeroCol = 1
+for i in range(m):
+    for j in range(n):
+        # If the element is zero,
+        if matrix[i][j] == 0:
+            # Update the row
+            matrix[i][0] = 0
+
+            # Update the column
+            if j > 0:
+                matrix[0][j] = 0
+            else:
+                # when it is zeroth column
+                zeroCol = 0
+
+# Iterate rows and cols except header row and col
+for rInner in range(1, m):
+    for cInner in range(1, n):
+        # If the val at current Iter is non-zero and either of its headers is zero, mark the element as zero
+        if matrix[rInner][cInner] != 0 and (matrix[rInner][0] == 0 or matrix[0][cInner] == 0):
+            matrix[rInner][cInner] = 0
+
+# Dealing with Col Header
+if matrix[0][0] == 0:
+    for k in range(n):
+        matrix[0][k] = 0
+
+# Dealing with row Header
+if zeroCol == 0:
+    for l in range(m):
+        matrix[l][0] = 0
+print(matrix)
