@@ -587,3 +587,17 @@ if zeroCol == 0:
     for l in range(m):
         matrix[l][0] = 0
 print(matrix)
+
+# pb: Rotate the matrix by 90 degrees
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+# After 90 degrees rotation: [[7,4,1],[8,5,2],[9,6,3]]
+m = len(matrix)
+n = len(matrix[0])
+print(matrix)
+for i in range(m):
+    for j in range(n):
+        if i < j:
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+for row in range(m):
+    matrix[row].reverse()
+print(matrix)
