@@ -482,6 +482,7 @@ for i in range(len(nums)):
         negIdx += 2
 print(rearrangedArr)
 
+# =========================================================================
 
 # pb Statement:Given an unsorted array of integers nums, return the length of
 # the longest consecutive elements sequence.
@@ -525,6 +526,8 @@ for zero in zeroLocs:
         matrix[r][col] = 0
 
 print(matrix)
+# =========================================================================
+
 
 # matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
 # Optimal :(In terms of space complexity O(1))
@@ -588,6 +591,7 @@ if zeroCol == 0:
         matrix[l][0] = 0
 print(matrix)
 
+# ==============================================================
 # pb: Rotate the matrix by 90 degrees
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 # After 90 degrees rotation: [[7,4,1],[8,5,2],[9,6,3]]
@@ -601,3 +605,56 @@ for i in range(m):
 for row in range(m):
     matrix[row].reverse()
 print(matrix)
+
+# ==================================================================
+# pb: print matrix in spiral order
+
+# matrix = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]]
+matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+# print matrix in spiral order
+m = len(matrix)
+n = len(matrix[0])
+
+leftExtreme = 0
+rightExtreme = n - 1
+topExtreme = leftExtreme + 1
+botExtreme = m - 1
+
+while leftExtreme <= rightExtreme and topExtreme <= botExtreme:
+    i = j = leftExtreme
+    # j = leftExtreme
+    while i != leftExtreme + 1 or j != leftExtreme:
+        # -->
+        while j <= rightExtreme:
+            print(matrix[i][j], end=" ")
+            j += 1
+        j -= 1
+        i += 1
+
+        # top to bottom
+        while i <= botExtreme:
+            print(matrix[i][j], end=" ")
+            i += 1
+        i -= 1
+        j -= 1
+
+        # <--
+        while j >= leftExtreme:
+            print(matrix[i][j], end=" ")
+            j -= 1
+        j += 1
+        i -= 1
+
+        # bottom to top
+        while i >= topExtreme:
+            print(matrix[i][j], end=" ")
+            i -= 1
+        i += 1
+    leftExtreme += 1
+    rightExtreme -= 1
+    topExtreme = leftExtreme + 1
+    botExtreme -= 1
+
+while leftExtreme <= rightExtreme:
+    print(matrix[m // 2][leftExtreme], end=" ")
+    leftExtreme += 1
