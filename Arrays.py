@@ -224,7 +224,7 @@ def longestSubArrayWithGivenSum(arr, target):
     # The dictionary to store the sum of all elements to it's left of the current index.
     untilNowSums = {}
     for i in range(len(arr)):
-        # Firstly, add cur ele to the sum-tracking variable(sum_) as the iteration proceeds
+        # Firstly, curSum cur ele to the sum-tracking variable(sum_) as the iteration proceeds
         sum_ += arr[i]
 
         # If the sum from starting to until now (which is stored in sum_) equals target, then we have the
@@ -290,7 +290,7 @@ def twoSum(arr, tar):
         # If the value exists in the eleRef, return the current ele and that ele.
         if val in eleRef:
             return [i, eleRef[val]]
-        # If the current element is not added into the eleRef yet, add it.
+        # If the current element is not added into the eleRef yet, curSum it.
         if arr[i] not in eleRef:
             eleRef[arr[i]] = i
 
@@ -658,3 +658,46 @@ while leftExtreme <= rightExtreme and topExtreme <= botExtreme:
 while leftExtreme <= rightExtreme:
     print(matrix[m // 2][leftExtreme], end=" ")
     leftExtreme += 1
+
+
+# Problem Statement: Given an array of integers and an integer k,
+# return the total number of subarrays whose sum equals k.
+
+arr = [1, 2, 3, -3, 1, 1, 1, 4, 2, -3]
+# Optimal:
+subArrays = 0
+k = 3
+# we start with the belowDictionary having 1 key value pair -> 0 occurred : 1 time
+SumK_CntV = {0: 1}
+add = 0
+for i in range(len(arr)):
+    add += arr[i]
+
+    # Check if we have came across our desired value in the dictionary
+    if add - k in SumK_CntV:
+        subArrays += SumK_CntV[add - k]
+
+    # if the add is not in dictionary, add it. else, increase the count (I.e, no. of times the add occurred until now.)
+    if add not in SumK_CntV:
+        SumK_CntV[add] = 1
+    else:
+        SumK_CntV[add] += 1
+
+print(subArrays)
+
+# Better: Two pointers to dynamically evaluate if sum == k; TC: O(N**2)
+i = 0
+while i <= len(arr) - 2:
+    j = i + 1
+    add = arr[i]
+    if add == k:
+        subArrays += 1
+    while j <= len(arr) - 1:
+        add += arr[j]
+        if add == k:
+            subArrays += 1
+        j += 1
+    i += 1
+print(subArrays)
+
+# Brute force: Generate all sub arrays and check if their sum equals k
