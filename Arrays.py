@@ -701,3 +701,45 @@ while i <= len(arr) - 2:
 print(subArrays)
 
 # Brute force: Generate all sub arrays and check if their sum equals k
+
+# =======================================================================================
+
+# pb: Given number of rows, form a pascal's triangle and return me the element at position r,c
+# Pascal's triangle
+r = 5
+c = 3
+
+
+def pascalTriangle(rows, r, c):
+    pTria = []
+    # rowsK_toAppendV = {1:[1],2:[]}
+    # When rows are zero
+    if rows < 1:
+        return pTria
+    # when only one row is asked
+    elif rows < 2:
+        pTria.append([1])
+        return pTria
+    # when 2 rows are asked
+    elif rows < 3:
+        pTria.append([1])
+        pTria.append([1, 1])
+        return pTria
+    else:
+        pTria.append([1])
+        pTria.append([1, 1])
+        for i in range(2, rows):
+            curRow = [1]
+            for j in range(1, i):
+                prev = pTria[i - 1][j - 1]
+                next = pTria[i - 1][j]
+                val = prev + next
+                curRow.append(val)
+            curRow.append(1)
+            pTria.append(curRow)
+
+        return pTria[r][c]
+
+
+ans = pascalTriangle(rows=5, r=4, c=3)
+print(ans)
