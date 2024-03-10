@@ -743,3 +743,63 @@ def pascalTriangle(rows, r, c):
 
 ans = pascalTriangle(rows=5, r=4, c=3)
 print(ans)
+
+# ==================================================================================
+
+# Problem Statement: Given an array of N integers. Find the elements that appear more than N/3 times in the array. If
+# no such element exists, return an empty vector.
+# arr = [3, 1, 3, 4, 3, 3, 3]
+
+""" Hint: At max only 2 elements can be present more than two times."""
+
+# Optimal:
+
+arr = [3, 3, 1, 1, 1, 1, 2, 4, 4, 3, 3, 3, 4, 4]
+# arr = [3, 0, 3, 4]
+m1 = None
+cnt1 = 0
+
+m2 = None
+cnt2 = 0
+
+# Note: This logic is just similar to n/2 approach of moore's voting algorithm.
+# The conditions arr[i] != m2 and arr[i] != m1 are used to not track same two elements as majority elements.
+for i in range(len(arr)):
+    if cnt1 == 0 and arr[i] != m2:
+        m1 = arr[i]
+        cnt1 = 1
+    elif cnt2 == 0 and arr[i] != m1:
+        m2 = arr[i]
+        cnt2 = 1
+    elif arr[i] == m1:
+        cnt1 += 1
+    elif arr[i] == m2:
+        cnt2 += 1
+    else:
+        cnt1 -= 1
+        cnt2 -= 1
+
+# Do a check if the elements obtained are really major elements
+m1Check = 0
+for k in range(len(arr)):
+    if arr[k] == m1:
+        m1Check += 1
+
+m2Check = 0
+for l in range(len(arr)):
+    if arr[l] == m2:
+        m2Check += 1
+
+majElements = []
+if m1Check > len(arr) // 3:
+    majElements.append(m1)
+if m2Check > len(arr) // 3:
+    majElements.append(m2)
+
+
+
+
+
+
+
+
