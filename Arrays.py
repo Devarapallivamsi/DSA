@@ -482,6 +482,7 @@ for i in range(len(nums)):
         negIdx += 2
 print(rearrangedArr)
 
+
 # =========================================================================
 
 # pb Statement:Given an unsorted array of integers nums, return the length of
@@ -659,7 +660,6 @@ while leftExtreme <= rightExtreme:
     print(matrix[m // 2][leftExtreme], end=" ")
     leftExtreme += 1
 
-
 # Problem Statement: Given an array of integers and an integer k,
 # return the total number of subarrays whose sum equals k.
 
@@ -796,10 +796,24 @@ if m1Check > len(arr) // 3:
 if m2Check > len(arr) // 3:
     majElements.append(m2)
 
+# Pb: Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such
+# that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1
+# <= index1 < index2 <= numbers.length.
 
+# Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of
+# length 2.
 
-
-
-
-
-
+# Two sum 2 (Input array is sorted)
+lst = [2, 7, 11, 15]
+target = 9
+def twoSumTwo(arr):
+    left = 0
+    right = len(arr) - 1
+    while left < right:
+        sum_ = arr[left] + arr[right]
+        if sum_ == target:
+            return [left + 1, right + 1]
+        if sum_ > target:
+            right -= 1
+        else:
+            left += 1
