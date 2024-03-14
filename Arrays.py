@@ -859,3 +859,49 @@ def threeSum(nums):
             start += 1
     return triplets
 
+# Problem Statement: Given an array of N integers, your task is to find unique quads that add up to give a target
+# value. In short, you need to return an array of all the unique quadruplets [arr[a], arr[b], arr[c], arr[d]] such
+# that their sum is equal to a given target.
+
+# Four sum:
+nums = [4, 3, 3, 4, 4, 2, 1, 2, 1, 1]
+nums.sort()
+nums = [1, 1, 1, 2, 2, 3, 3, 4, 4, 4]
+n = len(nums)
+quads = []
+target = 9
+p1 = 0
+p4 = n - 1
+
+while p1 < n - 3:
+    # To handle repetitive p1 cases
+    if 0 < p1 < n and nums[p1] == nums[p1 - 1]:
+        p1 += 1
+        continue
+    else:
+        p2 = p1 + 1
+        while p2 < n - 2:
+            # To handle repetitive p2 cases.
+            if 1 < p2 < n and nums[p2] == nums[p2 - 1]:
+                p2 += 1
+                continue
+            else:
+                p3 = p2 + 1
+                # Always have the last pointer at last.
+                p4 = n - 1
+                while p3 < p4:
+                    # P3's repetitive cases handling loop comes here.
+                    addn = nums[p1] + nums[p2] + nums[p3] + nums[p4]
+                    if addn == target:
+                        quads.append([nums[p1], nums[p2], nums[p3], nums[p4]])
+                        p3 += 1
+                        while p3 < n and nums[p3] == nums[p3 - 1]:
+                            p3 += 1
+                    elif addn > target:
+                        p4 -= 1
+                    else:
+                        p3 += 1
+            p2 += 1
+    p1 += 1
+
+print(quads)
