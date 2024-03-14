@@ -817,3 +817,45 @@ def twoSumTwo(arr):
             right -= 1
         else:
             left += 1
+
+
+# Problem Statement: Given an array of N integers, your task is to find unique triplets that add up to give a sum of
+# zero. In short, you need to return an array of all the unique triplets [arr[a], arr[b], arr[c]] such that i!=j,
+# j!=k, k!=i, and their sum is equal to zero.
+
+def threeSum(nums):
+    # To make use of two point 2 sum approach, sort the array.
+    nums.sort()
+    triplets = []
+    n = len(nums)
+    target = 0
+    start = 0
+    end = n - 1
+    # Keeping the start stationary,
+    while start < end:
+        mid = start + 1
+        end = n - 1
+        # Move the mid and end pointers dynamically
+        while mid < end:
+            add = nums[start] + nums[mid] + nums[end]
+            if add == target:
+                triplets.append([nums[start], nums[mid], nums[end]])
+                mid += 1
+                end -= 1
+                # This is to not land at same nums[mid] again when we have found a triplet
+                while mid < n and nums[mid] == nums[mid - 1]:
+                    mid += 1
+            # If the sum is too less, move the mid -->
+            elif add < target:
+                mid += 1
+            # If the sum is too big, move the end <--
+            elif add > target:
+                end -= 1
+        # By now, we have checked if we can find any triplet with first ele being at start.
+        # Now, move the start but, we should not land up on the same start as we have to eliminate
+        # duplicate triplet formation
+        start += 1
+        while start < n and nums[start] == nums[start - 1]:
+            start += 1
+    return triplets
+
