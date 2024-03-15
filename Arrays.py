@@ -806,6 +806,8 @@ if m2Check > len(arr) // 3:
 # Two sum 2 (Input array is sorted)
 lst = [2, 7, 11, 15]
 target = 9
+
+
 def twoSumTwo(arr):
     left = 0
     right = len(arr) - 1
@@ -859,6 +861,7 @@ def threeSum(nums):
             start += 1
     return triplets
 
+
 # Problem Statement: Given an array of N integers, your task is to find unique quads that add up to give a target
 # value. In short, you need to return an array of all the unique quadruplets [arr[a], arr[b], arr[c], arr[d]] such
 # that their sum is equal to a given target.
@@ -905,3 +908,24 @@ while p1 < n - 3:
     p1 += 1
 
 print(quads)
+# ===============================================================================================
+# Longest subarray with zero-sum
+nums = [9, -3, 3, -1, 6, -5]
+maxLength = -1
+target = 0
+add = 0
+prefSum = {}
+for i in range(len(nums)):
+    add += nums[i]
+
+    if add == target:
+        maxLength = max(i + 1, maxLength)
+
+    if add - target in prefSum:
+        maxLength = max(maxLength, i - prefSum[add-target])
+
+    if add not in prefSum:
+        prefSum[add] = i
+
+print(maxLength)
+
