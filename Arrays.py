@@ -922,14 +922,39 @@ for i in range(len(nums)):
         maxLength = max(i + 1, maxLength)
 
     if add - target in prefSum:
-        maxLength = max(maxLength, i - prefSum[add-target])
+        maxLength = max(maxLength, i - prefSum[add - target])
 
     if add not in prefSum:
         prefSum[add] = i
 
 print(maxLength)
 
+# ========================================================================================================
 
+# Problem Statement: Given an array of integers A and an integer B. Find the total number of
+# sub arrays having bitwise XOR of all elements equal to k.
 
+nums = [5, 6, 7, 8, 9]
+xorCount = {0: 1}
+k = 5
 
+# Initialize the xor with zero
+xor = 0
+subArrays = 0
+for i in range(len(nums)):
+    # Keep XORing the elements as you go.
+    xor ^= nums[i]
 
+    # "XORing the current XOR and target (k) is like finding if I have any sub arrays that end with my current ele
+    # and xor to k i.e, if xor ^ k is present in my xorCount dictionary, Then It implies that there are
+    # xorCount[xor^k] sub arrays that end with the element that I am currently at, and xor to K"
+    if xor ^ k in xorCount:
+        subArrays += xorCount[xor ^ k]
+
+    # If the xor until now is not in my dict, I will have to add it. It is like counting xor's I found until now.
+    if xor not in xorCount:
+        xorCount[xor] = 1
+    else:
+        xorCount[xor] += 1
+
+print(subArrays)
