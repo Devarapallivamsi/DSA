@@ -958,3 +958,23 @@ for i in range(len(nums)):
         xorCount[xor] += 1
 
 print(subArrays)
+
+# ======================================================
+
+# Pb: Merge the intervals
+# intervals = [[0, 2], [1, 4], [3, 5]]
+intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+# intervals = [[1, 4], [4, 5]]
+intervals.sort(key=lambda k: k[0])
+
+lastIntrvl = intervals[0]
+i = 1
+merged = [intervals[0]]
+for i in range(1, len(intervals)):
+    curIntrvl = intervals[i]
+    last = merged[-1]
+    if curIntrvl[0] <= last[1]:
+        merged[-1] = [min(curIntrvl[0], merged[-1][0]), max(curIntrvl[1], merged[-1][1])]
+    else:
+        merged.append(curIntrvl)
+
