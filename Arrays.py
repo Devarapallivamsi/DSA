@@ -978,3 +978,50 @@ for i in range(1, len(intervals)):
     else:
         merged.append(curIntrvl)
 
+
+# ========================================================================
+
+# Problem Statement: Given an array of N integers, count the inversion of the array (using merge-sort).
+#
+# What is an inversion of an array? Definition: for all i & j < size of array, if i < j then you have
+# to find pair (A[i],A[j]) such that A[j] < A[i].
+
+def returnSorted(arr, left, mid, end, cnt):
+    tempArray = []
+    i = left
+    j = mid + 1
+    while i <= mid and j <= end:
+        if arr[i] <= arr[j]:
+            tempArray.append(arr[i])
+            i += 1
+        else:
+            tempArray.append(arr[j])
+            cnt += mid - i + 1
+            j += 1
+
+    while i <= mid:
+        tempArray.append(arr[i])
+        i += 1
+    while j <= end:
+        tempArray.append(arr[j])
+        j += 1
+    arr[left:end + 1] = tempArray[:]
+    return cnt
+
+
+def mergeSort(start, end, arr, cnt):
+    ct = 0
+    if start == end:
+        return ct
+    mid = (start + end) // 2
+    ct += mergeSort(start, mid, arr, cnt)
+    ct += mergeSort(mid + 1, end, arr, cnt)
+    ct += returnSorted(arr, start, mid, end, cnt)
+    return ct
+
+
+if __name__ == "__main__":
+    count = 0
+    nums = [5, 4, 3, 2, 1]
+    ans = mergeSort(0, len(nums) - 1, nums, count)
+    print(ans)
