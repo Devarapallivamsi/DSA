@@ -1131,15 +1131,19 @@ maxProd = -math.inf
 # This is just like traversing the array from first -> last and last -> first simultaneously
 # and updating the maxProd with maximum value as we go.
 
-# TC: O(N)
-for i in range(n):
-    prefix *= arr[i]
-    suffix *= arr[n - i - 1]
+def maxProduct(self, nums: List[int]) -> int:
+    if len(nums) == 1:
+        return nums[0]
+    n = len(nums)  # size of array.
 
-    if prefix == 0:
-        prefix = 1
-    if suffix == 0:
-        suffix = 1
-
-    maxProd = max(maxProd, max(prefix, suffix))
-print(maxProd)
+    pre, suff = 1, 1
+    ans = float('-inf')
+    for i in range(n):
+        if pre == 0:
+            pre = 1
+        if suff == 0:
+            suff = 1
+        pre *= nums[i]
+        suff *= nums[n - i - 1]
+        ans = max(ans, max(pre, suff))
+    return ans
