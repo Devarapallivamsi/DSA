@@ -1025,3 +1025,62 @@ if __name__ == "__main__":
     nums = [5, 4, 3, 2, 1]
     ans = mergeSort(0, len(nums) - 1, nums, count)
     print(ans)
+
+# Problem Statement: Given an array of numbers, you need to return the count of reverse pairs. Reverse Pairs are
+# those pairs where i<j and arr[i]>2*arr[j].
+
+def countPairs(arr, left, mid, end):
+    i = left
+    j = mid + 1
+    pairs = 0
+
+    while i <= mid and j <= end:
+        if arr[i] > 2 * arr[j]:
+            j += 1
+            pairs += 1
+        else:
+            i += 1
+            # pairs += j - 1
+    if i < left:
+        pairs += (left - i) * (end - mid)
+    return pairs
+
+
+def returnSorted(arr, left, mid, end, cnt):
+    tempArray = []
+    i = left
+    j = mid + 1
+    cnt += countPairs(arr, left, mid, end)
+    while i <= mid and j <= end:
+        if arr[i] <= arr[j]:
+            tempArray.append(arr[i])
+            i += 1
+        else:
+            tempArray.append(arr[j])
+            j += 1
+    while i <= mid:
+        tempArray.append(arr[i])
+        i += 1
+    while j <= end:
+        tempArray.append(arr[j])
+        j += 1
+    arr[left:end + 1] = tempArray[:]
+    return cnt
+
+
+def mergeSort(start, end, arr, cnt):
+    ct = 0
+    if start == end:
+        return ct
+    mid = (start + end) // 2
+    ct += mergeSort(start, mid, arr, cnt)
+    ct += mergeSort(mid + 1, end, arr, cnt)
+    ct += returnSorted(arr, start, mid, end, cnt)
+    return ct
+
+
+if __name__ == "__main__":
+    count = 0
+    nums = [1, 3, 2, 3, 1]
+    ans = mergeSort(0, len(nums) - 1, nums, count)
+    print(ans)
