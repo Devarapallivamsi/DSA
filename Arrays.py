@@ -1026,6 +1026,7 @@ if __name__ == "__main__":
     ans = mergeSort(0, len(nums) - 1, nums, count)
     print(ans)
 
+
 # Problem Statement: Given an array of numbers, you need to return the count of reverse pairs. Reverse Pairs are
 # those pairs where i<j and arr[i]>2*arr[j].
 
@@ -1084,3 +1085,61 @@ if __name__ == "__main__":
     nums = [1, 3, 2, 3, 1]
     ans = mergeSort(0, len(nums) - 1, nums, count)
     print(ans)
+
+# ============================================================================
+
+# Problem Statement: Given an array that contains both negative and positive integers, find the maximum product
+# subarray.
+
+
+# nums = [3, -1, 4]
+# nums = [3, -1, -1]
+import math
+
+nums = [1, -2, 4, 3, -3, 1, 2, -4, 2, 1, -3, 2, 4, -1, 2, 5]
+
+n = len(nums)
+prefix = 1
+suffix = 1
+maxProd_1 = -math.inf
+
+# Update the maxProd_1 with the maximum sum found (from left to right)
+for i in range(n):
+    prefix *= nums[i]
+    # suffix *= nums[n-i-1]
+    if prefix == 0:
+        prefix = 1
+    # if suffix == 0:
+    #     suffix = 1
+
+    maxProd_1 = max(maxProd_1, prefix)
+
+# Update the maxProd_2 with the max sum found (from the right to left)
+maxProd_2 = -math.inf
+for j in range(n - 1, -1, -1):
+    suffix *= nums[j]
+    if suffix == 0:
+        suffix = 1
+    maxProd_2 = max(maxProd_2, suffix)
+
+print(max(maxProd_1, maxProd_2))
+
+# The following code is what to be written in an interview setting:
+prefix = 1
+suffix = 1
+maxProd = -math.inf
+# This is just like traversing the array from first -> last and last -> first simultaneously
+# and updating the maxProd with maximum value as we go.
+
+# TC: O(N)
+for i in range(n):
+    prefix *= arr[i]
+    suffix *= arr[n - i - 1]
+
+    if prefix == 0:
+        prefix = 1
+    if suffix == 0:
+        suffix = 1
+
+    maxProd = max(maxProd, max(prefix, suffix))
+print(maxProd)
