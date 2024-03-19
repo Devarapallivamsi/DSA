@@ -1105,21 +1105,24 @@ maxProd_1 = -math.inf
 
 # Update the maxProd_1 with the maximum sum found (from left to right)
 for i in range(n):
-    prefix *= nums[i]
-    # suffix *= nums[n-i-1]
+
+    # It's mandatory for the code to work fine that we should have the check first and proceed with multiplication
     if prefix == 0:
         prefix = 1
-    # if suffix == 0:
-    #     suffix = 1
+
+    prefix *= nums[i]
 
     maxProd_1 = max(maxProd_1, prefix)
 
 # Update the maxProd_2 with the max sum found (from the right to left)
 maxProd_2 = -math.inf
 for j in range(n - 1, -1, -1):
-    suffix *= nums[j]
+
+    # It's mandatory for the code to work fine that we should have the check first and proceed with multiplication
     if suffix == 0:
         suffix = 1
+
+    suffix *= nums[j]
     maxProd_2 = max(maxProd_2, suffix)
 
 print(max(maxProd_1, maxProd_2))
