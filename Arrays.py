@@ -1134,7 +1134,7 @@ maxProd = -math.inf
 # This is just like traversing the array from first -> last and last -> first simultaneously
 # and updating the maxProd with maximum value as we go.
 
-def maxProduct(self, nums: List[int]) -> int:
+def maxProduct(nums):
     if len(nums) == 1:
         return nums[0]
     n = len(nums)  # size of array.
